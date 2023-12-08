@@ -464,7 +464,7 @@ function bookAdventure () {
 const btnLoyalty = document.getElementById("loyalty");
 btnLoyalty.addEventListener('click', checkLoyalty);
 
-function checkLoyalty() {
+function checkLoyalty() { 
   // Retrieve the number of rooms for each type
   let singleRooms = parseInt(document.getElementById('singleNumRooms').value) || 0;
   let doubleRooms = parseInt(document.getElementById('doubleNumRooms').value) || 0;

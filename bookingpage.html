@@ -4,13 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Booking Page </title>
-    <!----CSS linked here-->
     <link rel="stylesheet" href="./booking.css">
-    <!----CSS linked here-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" >
-   
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Tinos&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,7 +22,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Fira+Sans&family=Pacifico&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Tinos&display=swap" rel="stylesheet">
-    <!-- branches-page-first-section-head- two - font - here -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@300;400&family=Berkshire+Swash&family=Figtree:wght@300&family=Fira+Sans&family=Gowun+Dodum&family=Jomolhari&family=Lexend&family=Niramit:wght@300&family=Noto+Sans+Display:wght@200&family=Pacifico&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Righteous&family=Roboto:wght@300&family=Tauri&family=Tinos&display=swap" rel="stylesheet">
@@ -71,8 +67,9 @@
                   <a href="./contact.html"><li> Contact </li></a>
                   <a href="./bookingpage.html"><li> Book Now </li></a>
                 </ul>
+
             </section>
-            <!--mobile view nav bar - hembuger starts here-->
+            <!--mobile view nav bar - hembuger ENDS here-->
             
             <!--Araliya Logo-->
             <a href="./index.html">
@@ -128,13 +125,13 @@
                                 <input type="email" id="email"  value="" maxlength="40" pattern=".@example\.com" placeholder="aadhil@gmail.com" required>
                             </p>
 
-                        <fieldset>
+                    <fieldset>
 
                          <div>
                             <h4> Room Type : Single - 25 000 LKR </h4>
 
                             <p>
-                                <label for="numRooms"> Number of Rooms:</label>
+                                <label for="singleNumRooms"> Number of Rooms:</label>
                                 <input type="number" id="singleNumRooms" min="0" max="25" value="0" name="numRooms">
                             </p>
                         </div>
@@ -143,7 +140,7 @@
                             <h4> Room Type : Double - 35 000 LKR </h4>
 
                             <p>
-                                <label for="numRooms"> Number of Rooms:</label>
+                                <label for="doubleNumRooms"> Number of Rooms:</label>
                                 <input type="number" id="doubleNumRooms" min="0" max="25" value="0" name="numRooms">
                             </p>
                         </div>
@@ -152,7 +149,7 @@
                              <h4> Room Type : Triple - 40 000 LKR </h4>
 
                             <p>
-                                <label for="numRoomsTriple"> Number of Rooms : </label>
+                                <label for="tripleNumRooms"> Number of Rooms : </label>
                                 <input type="number" id="tripleNumRooms" min="0" max="25" value="0" name="numRoomsTriple">
                             </p>
                         </div>
@@ -184,21 +181,22 @@
 
 
                             <p>
-                                <label for="wifiSingle">WiFi</label>
-                                <input type="checkbox" id="wifi" name="extras" value="wifi">
+                                <label for="wifi">WiFi</label><input type="checkbox" id="wifi" name="extras" value="wifi">
+                                
                             </p>
                             
                             <p>
-                                <label for="poolViewSingle">Pool View </label>
-                                <input type="checkbox" id="poolView" name="extras" value="poolView"> 
+                                <label for="poolView">Pool View </label><input type="checkbox" id="poolView" name="extras" value="poolView"> 
+                                
                             </p>
                             
                             <p>
-                                <label for="gardenViewSingle">Garden View </label>
-                                <input type="checkbox" id="gardenView" name="extras" value="gardenView"> 
+                                <label for="gardenView">Garden View </label><input type="checkbox" id="gardenView" name="extras" value="gardenView">
+                                 
                             </p>
+                        </div>
                         
-                        </fieldset>
+                    </fieldset>
 
                             
                                <!-- Promo Code - Enter-->
@@ -321,7 +319,6 @@
                                     <h2> Current Adventure Booking </h2>
 
                                     <table id="summaryCurrentAdventureTable">
-
                                     </table>
 
                                     <p id="currentAdventureCost"> Current Adventure Booking Cost : 0 LKR</p>

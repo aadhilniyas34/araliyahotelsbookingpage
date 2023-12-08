@@ -307,7 +307,7 @@ select, input {
 }
 
 #bookBtn,#adventureBtn {
-    background-color: #bd9f65;
+    background-color: darkgreen;
     color: #fff;
     padding: 10px 15px;
     border: none;
@@ -317,12 +317,12 @@ select, input {
 
 table {
     border-collapse: collapse;
-    width: 100%;
+    width: 75%;
   }
 
 th, td {
     border: 1px solid #ddd;
-    padding: 8px;
+    padding: 2%;
     text-align: left;
 }
   
@@ -331,7 +331,7 @@ th, td {
 }
 
 #favBtn, #loyalty {
-    background-color: lightblue;
+    background-color: darkblue;
     color: #fff;
     padding: 10px 15px;
     border: none;
@@ -347,12 +347,12 @@ th, td {
     color: #333;
 }
 
- #summaryOverallBook, #summaryCurrentBookAdventure, #summaryCurrentBookHotel, #summaryCurrentBookOverll, #summaryOverallBookHotel, #summaryOverallBookAdventure {
+ #summaryCurrentBookAdventure, #summaryCurrentBookHotel, #summaryCurrentBookOverll, #summaryOverallBookHotel, #summaryOverallBookAdventure {
     width: 50%;
     margin: 20px auto;
     padding: 15px;
     border: 1px solid #ccc;
-}
+ }
 /*Booking Ends Here*/
 
 
