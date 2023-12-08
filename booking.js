@@ -27,7 +27,7 @@ let pointsPerRoom = 20;
 
 // Variables for Hotel Booking
 const formRoomBooking = document.querySelectorAll('#bookingRoomForm input');
-const checkInDate =  document.getElementById('InDate');
+const checkInDate = document.getElementById('InDate');
 const checkOutDate = document.getElementById("OutDate");
 const getName = document.getElementById('name');
 const getMobile = document.getElementById('mobile');
@@ -63,7 +63,7 @@ const numLocalAdult = document.getElementById("numLocalAdult");
 const hoursLocalAdult = document.getElementById("hoursLocalAdult");
 const numLocalKid = document.getElementById("numLocalKid");
 const numForeignAdult = document.getElementById("numForeignAdult");
-const numForeignKid  = document.getElementById("numForeignKid");
+const numForeignKid = document.getElementById("numForeignKid");
 const adultGuide = document.getElementById('guideAdult');
 const kidGuide = document.getElementById('guideKid');
 //current Adventure Booking - Live update
@@ -84,106 +84,106 @@ let totalDays = 0;
 checkInDate.addEventListener('change', e => {
   startDate = new Date(e.target.value)
   console.log(e.target.value)
+  checkInDate.setAttribute('min', e.target.value)
+  checkOutDate.setAttribute('min', e.target.value)
 })
 
 checkOutDate.addEventListener('change', e => {
   endDate = new Date(e.target.value)
-
   console.log(e.target.value)
-
-   totalDays = Math.floor((endDate.getTime()-startDate.getTime() ) / (1000 * 60 * 60 * 24));
+  totalDays = Math.floor((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
 
 })
 
 
 // Booking Calculations - Current Booking
-function currentCost () {
+function currentCost() {
 
-// Hotel Current Cost
-let currentHotelCost = 
-                    (totalDays *((roomSingle.value * singleRoomPrice)+
-                    (roomDouble.value * doubleRoomPrice) +
-                    (roomTriple.value * tripleRoomPrice) +
-                    (extraBed.value* extraBedPrice) +
-                    (extraMeals.value * extraMealPrice))) ;
+  // Hotel Current Cost
+  let currentHotelCost =
+    (totalDays * ((roomSingle.value * singleRoomPrice) +
+      (roomDouble.value * doubleRoomPrice) +
+      (roomTriple.value * tripleRoomPrice) +
+      (extraBed.value * extraBedPrice) +
+      (extraMeals.value * extraMealPrice)));
 
 
   costHotelCurrent.textContent = `Current Hotel Booking Cost : ${currentHotelCost.toFixed(2)} LKR `;
 
-// Adventure Current Cost                      
-let currentAdventureCost = ((numLocalAdult.value * hoursLocalAdult.value * localAdultPrice) + 
-                        (numLocalKid.value * localKidPrice) +
-                        (numForeignAdult.value * foreignAdultPrice) +
-                        (numForeignKid.value * foreignKidPrice) ) ; 
+  // Adventure Current Cost                      
+  let currentAdventureCost = ((numLocalAdult.value * hoursLocalAdult.value * localAdultPrice) +
+    (numLocalKid.value * localKidPrice) +
+    (numForeignAdult.value * foreignAdultPrice) +
+    (numForeignKid.value * foreignKidPrice));
 
-                        if (adultGuide.checked) {
-                          currentAdventureCost+=+numLocalAdult.value * 1000 ;
-                          currentAdventureCost+=+numForeignAdult.value * 1000;
-                        }
-                        if (kidGuide.checked) {
-                          currentAdventureCost+=+numLocalKid.value * 500;
-                          currentAdventureCost+=+numForeignKid.value * 500;
-                        }
-
-                   
-   costAdventureCurrent.textContent = `Current Adventure Booking Cost : ${currentAdventureCost.toFixed(2)} LKR `;
+  if (adultGuide.checked) {
+    currentAdventureCost += +numLocalAdult.value * 1000;
+    currentAdventureCost += +numForeignAdult.value * 1000;
+  }
+  if (kidGuide.checked) {
+    currentAdventureCost += +numLocalKid.value * 500;
+    currentAdventureCost += +numForeignKid.value * 500;
+  }
 
 
-//Total Current Cost
-let totalCurrent = currentHotelCost + currentAdventureCost;
+  costAdventureCurrent.textContent = `Current Adventure Booking Cost : ${currentAdventureCost.toFixed(2)} LKR `;
 
 
-      costTotalCurrent.textContent =  `Current Total Booking Cost :
-                                    ${totalCurrent.toFixed(2)} LKR `; 
+  //Total Current Cost
+  let totalCurrent = currentHotelCost + currentAdventureCost;
 
-}   
+
+  costTotalCurrent.textContent = `Current Total Booking Cost :
+                                    ${totalCurrent.toFixed(2)} LKR `;
+
+}
 
 
 // Overall Hotel Booking - Calculations with discunt
-function overallTotalCostHotel (isPromoApplied) {
-  let overallCostHotel = 
-                      ((totalDays *(roomSingle.value * singleRoomPrice)+
-                      (roomDouble.value * doubleRoomPrice) +
-                      (roomTriple.value * tripleRoomPrice) +
-                      (extraBed.value* extraBedPrice) +
-                      (extraMeals.value * extraMealPrice))) ;
-  
+function overallTotalCostHotel(isPromoApplied) {
+  let overallCostHotel =
+    ((totalDays * (roomSingle.value * singleRoomPrice) +
+      (roomDouble.value * doubleRoomPrice) +
+      (roomTriple.value * tripleRoomPrice) +
+      (extraBed.value * extraBedPrice) +
+      (extraMeals.value * extraMealPrice)));
 
-                        if (isPromoApplied) {
-                          overallCostHotel -= overallCostHotel*0.05;
-                        }  
-        
-      overallHotelCost.textContent = `Overall Booking Cost :
+
+  if (isPromoApplied) {
+    overallCostHotel -= overallCostHotel * 0.05;
+  }
+
+  overallHotelCost.textContent = `Overall Booking Cost :
       ${overallCostHotel.toFixed(2)} LKR `
-  } 
+}
 
 
 //Overall Adventure Booking - Calculation
-function overallTotalCostAdventure () {
-  let overallCostAdventure = ((numLocalAdult.value * hoursLocalAdult.value * localAdultPrice) + 
-                              (numLocalKid.value * localKidPrice) +
-                              (numForeignAdult.value * foreignAdultPrice) +
-                              (numForeignKid.value * foreignKidPrice) )  
+function overallTotalCostAdventure() {
+  let overallCostAdventure = ((numLocalAdult.value * hoursLocalAdult.value * localAdultPrice) +
+    (numLocalKid.value * localKidPrice) +
+    (numForeignAdult.value * foreignAdultPrice) +
+    (numForeignKid.value * foreignKidPrice))
 
-                                  if (adultGuide.checked) {
-                                    currentAdventureCost+=+numLocalAdult.value * 1000 ;
-                                    currentAdventureCost+=+numForeignAdult.value * 1000;
-                                  }
-                                  if (kidGuide.checked) {
-                                    currentAdventureCost+=+numLocalKid.value * 500;
-                                    currentAdventureCost+=+numForeignKid.value * 500;
-                                  } ;
+  if (adultGuide.checked) {
+    currentAdventureCost += +numLocalAdult.value * 1000;
+    currentAdventureCost += +numForeignAdult.value * 1000;
+  }
+  if (kidGuide.checked) {
+    currentAdventureCost += +numLocalKid.value * 500;
+    currentAdventureCost += +numForeignKid.value * 500;
+  };
 
-          textAdventure.textContent = `Overall Adventure Booking Cost :
+  textAdventure.textContent = `Overall Adventure Booking Cost :
           ${overallCostAdventure.toFixed(2)} LKR `;
-  } 
-  
+}
+
 
 // Hotel Booking Current Update - Hotel Booking Live
 formRoomBooking.forEach(input => input.addEventListener('input', currentHotelBooking));
 function currentHotelBooking() {
-currentCost();
-currentHotelSummaryTable.innerHTML = `
+  currentCost();
+  currentHotelSummaryTable.innerHTML = `
                             <tr>
                               <th>Category</th>
                               <th> Details/ Quantity</th>
@@ -265,13 +265,13 @@ currentHotelSummaryTable.innerHTML = `
                             </tr>
 
                `;
-        }
+}
 
 
 formAdventureBooking.forEach(input => input.addEventListener('input', currentAdventureBooking));
-function currentAdventureBooking () {
-currentCost();
-currentAdventureSummaryTable.innerHTML = `
+function currentAdventureBooking() {
+  currentCost();
+  currentAdventureSummaryTable.innerHTML = `
                                     <tr>
                                       <th> Category </th>
                                       <th>  Details/Quantity</th>
@@ -309,26 +309,26 @@ currentAdventureSummaryTable.innerHTML = `
         
                                     <tr>
                                         <td> Guide for Adult </td>
-                                        <td>${adultGuide.checked  ? 'Yes' : 'No'}</td>
+                                        <td>${adultGuide.checked ? 'Yes' : 'No'}</td>
                                     </tr>
         
                                     <tr>
                                         <td> Guide for Kid </td>
-                                        <td>${kidGuide.checked  ? 'Yes' : 'No'}</td>
+                                        <td>${kidGuide.checked ? 'Yes' : 'No'}</td>
                                     </tr>
                        `;
-            
-        }
 
-                                           
+}
+
+
 // Hotel Booking Overall - Book Now Button Click
 const BookNow = (e) => {
-e.preventDefault()
-let isPromoApplied = false;
-const promoCode = promoCodeOffer.value;
-isPromoApplied = promoCodes.some(i=> i === promoCode);
-overallTotalCostHotel(isPromoApplied);
-overallHotelTableBook.innerHTML = `
+  e.preventDefault()
+  let isPromoApplied = false;
+  const promoCode = promoCodeOffer.value;
+  isPromoApplied = promoCodes.some(i => i === promoCode);
+  overallTotalCostHotel(isPromoApplied);
+  overallHotelTableBook.innerHTML = `
                             <tr>
                               <th>Category</th>
                               <th> Details/ Quantity</th>
@@ -410,21 +410,29 @@ overallHotelTableBook.innerHTML = `
                             </tr> 
                `;
 
-        document.getElementById('bookingRoomForm').reset();
-        document.getElementById("summaryCurrentHotelTable").style.display = "none";
-        document.getElementById("currentHotelCost").innerText = "Current Hotel Booking Cost : 0";
-        document.getElementById('currentTotalCost').innerHTML = "Current Total Booking Cost : 0 LKR";
 
-        if (checkInDate === "" || checkOutDate === "" || getName === "" || getMobile === "" || getEmail === "" ) {
-                alert("Please fill in all required fields.")
-                document.getElementById("overallHotelBookingTable").style.display = "none"
-                document.getElementById("overallCostHotel").innerText = "Current Hotel Booking Cost : 0 LKR";
-        } else {
-              
-        }
+  document.getElementById("summaryCurrentHotelTable").style.display = "none";
+  document.getElementById("currentHotelCost").innerText = "Current Hotel Booking Cost : 0";
+  document.getElementById('currentTotalCost').innerHTML = "Current Total Booking Cost : 0 LKR";
 
-        
-    }
+  // || checkOutDate === "" || getName === "" || getMobile === "" || getEmail === "" 
+  console.log(checkInDate.value)
+  if (checkInDate.value === "") {
+    alert("Please fill in all required fields.")
+    document.getElementById("overallHotelBookingTable").style.display = "none"
+    document.getElementById("overallCostHotel").innerText = "Current Hotel Booking Cost : 0 LKR";
+  } else {
+
+  }
+
+  // let availablePoints = tets
+
+  document.getElementById('bookingRoomForm').reset();
+
+  loyaltyWrapper.removeAttribute('hidden')
+
+  document.getElementById('loyaltyPointsDisplay').innerHTML = '100 Points'
+}
 
 // Book Now Button
 btnBookNow.addEventListener('click', BookNow);
@@ -434,15 +442,15 @@ const btnAdventure = document.getElementById('adventureBtn');
 btnAdventure.addEventListener('click', bookAdventure);
 
 
-function bookAdventure () {
+function bookAdventure() {
   overallTotalCostAdventure();
-  textAdventure.innerHTML+= `<br> Adventure - Diving <br>Booked Date - ${dateBook.value}  <br> Number of Local Adult - ${numLocalAdult.value}  <br>Number of Local Kid - ${numLocalKid.value}  <br> Number of Foreign Adult - ${numForeignAdult.value}  <br>Number of Foreign Kid - ${numForeignKid.value}  <br>Guide for Adult- ${adultGuide.checked}  <br>Guide for Kid - ${kidGuide.checked} <br>Thank you for booking with us. Looking forward to see you ! `
-  ;
+  textAdventure.innerHTML += `<br> Adventure - Diving <br>Booked Date - ${dateBook.value}  <br> Number of Local Adult - ${numLocalAdult.value}  <br>Number of Local Kid - ${numLocalKid.value}  <br> Number of Foreign Adult - ${numForeignAdult.value}  <br>Number of Foreign Kid - ${numForeignKid.value}  <br>Guide for Adult- ${adultGuide.checked}  <br>Guide for Kid - ${kidGuide.checked} <br>Thank you for booking with us. Looking forward to see you ! `
+    ;
   document.getElementById('bookingRoomForm').reset();
   document.getElementById('summaryCurrentHotelTable').style.display = "none";
   document.getElementById('currentHotelCost').innerText = "Current Hotel Booking Cost : 0 LKR ";
-  
-  document.getElementById('currentTotalCost').innerHTML = "Current Total Booking Cost : 0 LKR"; 
+
+  document.getElementById('currentTotalCost').innerHTML = "Current Total Booking Cost : 0 LKR";
 
   document.getElementById('overallHotelBookingTable').style.display = "none";
   document.getElementById('overallCostHotel').innerHTML = "Overall Hotel Booking Cost : 0 LKR";
@@ -451,20 +459,22 @@ function bookAdventure () {
   document.getElementById('summaryCurrentAdventureTable').style.display = "none";
   document.getElementById('currentAdventureCost').innerText = "Current Adventure Booking Cost : 0 LKR";
 
-      if (dateBook === ""  ) {
-        alert("Please fill in all required fields.")
-        document.getElementById("overallAdventureBookingText").innerText = "Current Hotel Booking Cost : 0 LKR"
-        document.getElementById('currentTotalCost').innerHTML = "Current Total Booking Cost : 0 LKR";
-    } else {
-      
-    }
+  if (dateBook === "") {
+    alert("Please fill in all required fields.")
+    document.getElementById("overallAdventureBookingText").innerText = "Current Hotel Booking Cost : 0 LKR"
+    document.getElementById('currentTotalCost').innerHTML = "Current Total Booking Cost : 0 LKR";
+  } else {
+
+  }
 }
 
 // Check loyalty - Button
 const btnLoyalty = document.getElementById("loyalty");
 btnLoyalty.addEventListener('click', checkLoyalty);
 
-function checkLoyalty() { 
+const loyaltyWrapper = document.getElementById('loyalty-wrapper')
+
+function checkLoyalty() {
   // Retrieve the number of rooms for each type
   let singleRooms = parseInt(document.getElementById('singleNumRooms').value) || 0;
   let doubleRooms = parseInt(document.getElementById('doubleNumRooms').value) || 0;
@@ -476,9 +486,9 @@ function checkLoyalty() {
 
   // Store loyalty points in local storage
   if (loyaltyPoints > 0) {
-      let currentLoyaltyPoints = localStorage.getItem('loyaltyPoints') || 0;
-      let updatedLoyaltyPoints = parseInt(currentLoyaltyPoints) + loyaltyPoints;
-      localStorage.setItem('loyaltyPoints', updatedLoyaltyPoints);
+    let currentLoyaltyPoints = localStorage.getItem('loyaltyPoints') || 0;
+    let updatedLoyaltyPoints = parseInt(currentLoyaltyPoints) + loyaltyPoints;
+    localStorage.setItem('loyaltyPoints', updatedLoyaltyPoints);
   }
 
   // Display loyalty points to the user
@@ -493,40 +503,47 @@ btnFav.addEventListener('click', addToFav);
 
 // Local Storage Save Details - Add Fav Button Click
 function addToFav() {
- // Retrieve existing favorites from local storage
- let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+  // Retrieve existing favorites from local storage
+  let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
 
- favorites.push({ 
-  'Check In Date' : (checkInDate.value),
- 'Check Out Date' : (checkOutDate.value),
- 'Name with Initials' : (getName.value),
- 'Mobile Number' : (getMobile.value),
- 'Email' : (getEmail.value),
- 'Number of Single Rooms' : (roomSingle.value),
- 'Number of Double Rooms' : (roomDouble.value),
- 'Number of Triple Rooms' : (roomTriple.value),
- 'Number of Adults' : (adults.value),
- 'Number of Kids' : (kids.value),
- 'Number of Extra Bed' : (extraBed.value),
- 'Number of Meals' : (extraMeals.value),
- 'Extra Reqirement - WIFI' : (wifiBox.checked),
- 'Extra Reqirement - Pool View' : (poolViewBox.checked),
- 'Extra Reqirement - Garden View' : (gardenViewBox.checked),
- 'Adventure ' : ('Diving'),
- 'Booked Date - Adventure' : (dateBook.value),
- 'Number of Adult - Adventure' : (numLocalAdult.value),
- 'Hours - Local Adult - Adventure' : (hoursLocalAdult.value),
- 'Number of Local Kid - Adventure' : (numLocalKid.value),
- 'Number of Foreign Adult - Adventure' : (numForeignAdult.value),
- 'Number of Foreign Kid - Adventure' : (numForeignKid.value),
- 'Extra Requirement - Adventure Guide for Adult' : (adultGuide.checked),
- 'Extra Requirement - Adventure Guide for Kid' : (kidGuide.checked)
-});
- // Keep only the latest favorite (remove the oldest one)
- if (favorites.length > 1) {
-     favorites.shift();
- }
- // Save the updated favorites to local storage
- localStorage.setItem('Details', JSON.stringify(favorites));
+  favorites.push({
+    'Check In Date': (checkInDate.value),
+    'Check Out Date': (checkOutDate.value),
+    'Name with Initials': (getName.value),
+    'Mobile Number': (getMobile.value),
+    'Email': (getEmail.value),
+    'Number of Single Rooms': (roomSingle.value),
+    'Number of Double Rooms': (roomDouble.value),
+    'Number of Triple Rooms': (roomTriple.value),
+    'Number of Adults': (adults.value),
+    'Number of Kids': (kids.value),
+    'Number of Extra Bed': (extraBed.value),
+    'Number of Meals': (extraMeals.value),
+    'Extra Reqirement - WIFI': (wifiBox.checked),
+    'Extra Reqirement - Pool View': (poolViewBox.checked),
+    'Extra Reqirement - Garden View': (gardenViewBox.checked),
+    'Adventure ': ('Diving'),
+    'Booked Date - Adventure': (dateBook.value),
+    'Number of Adult - Adventure': (numLocalAdult.value),
+    'Hours - Local Adult - Adventure': (hoursLocalAdult.value),
+    'Number of Local Kid - Adventure': (numLocalKid.value),
+    'Number of Foreign Adult - Adventure': (numForeignAdult.value),
+    'Number of Foreign Kid - Adventure': (numForeignKid.value),
+    'Extra Requirement - Adventure Guide for Adult': (adultGuide.checked),
+    'Extra Requirement - Adventure Guide for Kid': (kidGuide.checked)
+  });
+  // Keep only the latest favorite (remove the oldest one)
+  if (favorites.length > 1) {
+    favorites.shift();
+  }
+  // Save the updated favorites to local storage
+  localStorage.setItem('Details', JSON.stringify(favorites));
 
 }
+
+
+window.addEventListener('load', () => {
+  const currentDate = new Date().toISOString().split('T')[0];
+  checkInDate.setAttribute('min', currentDate)
+  checkOutDate.setAttribute('min', currentDate)
+});
