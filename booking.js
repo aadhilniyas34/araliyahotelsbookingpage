@@ -72,12 +72,8 @@ let costAdventureCurrent = document.getElementById('currentAdventureCost');
 const textAdventure = document.getElementById('overallAdventureBookingText');
 
 
-// Total Cost current - Live update
-let costTotalCurrent = document.getElementById('currentTotalCost');
 
-
-
-// Date - Days Count
+// Hotel Booking - Date - Days Count
 let startDate, endDate = new Date()
 let totalDays = 0;
 
@@ -94,6 +90,14 @@ checkOutDate.addEventListener('change', e => {
   totalDays = Math.floor((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
 
 })
+
+window.addEventListener('load', () => {
+  const currentDate = new Date().toISOString().split('T')[0];
+  checkInDate.setAttribute('min', currentDate)
+  checkOutDate.setAttribute('min', currentDate)
+  dateBook.setAttribute('min', currentDate)
+});
+
 
 
 // Booking Calculations - Current Booking
@@ -129,12 +133,6 @@ function currentCost() {
   costAdventureCurrent.textContent = `Current Adventure Booking Cost : ${currentAdventureCost.toFixed(2)} LKR `;
 
 
-  //Total Current Cost
-  let totalCurrent = currentHotelCost + currentAdventureCost;
-
-
-  costTotalCurrent.textContent = `Current Total Booking Cost :
-                                    ${totalCurrent.toFixed(2)} LKR `;
 
 }
 
@@ -163,19 +161,19 @@ function overallTotalCostAdventure() {
   let overallCostAdventure = ((numLocalAdult.value * hoursLocalAdult.value * localAdultPrice) +
     (numLocalKid.value * localKidPrice) +
     (numForeignAdult.value * foreignAdultPrice) +
-    (numForeignKid.value * foreignKidPrice))
+    (numForeignKid.value * foreignKidPrice));
 
   if (adultGuide.checked) {
-    currentAdventureCost += +numLocalAdult.value * 1000;
-    currentAdventureCost += +numForeignAdult.value * 1000;
+    overallCostAdventure += +numLocalAdult.value * 1000;
+    overallCostAdventure += +numForeignAdult.value * 1000;
   }
   if (kidGuide.checked) {
-    currentAdventureCost += +numLocalKid.value * 500;
-    currentAdventureCost += +numForeignKid.value * 500;
-  };
+    overallCostAdventure += +numLocalKid.value * 500;
+    overallCostAdventure += +numForeignKid.value * 500;
+  }
 
   textAdventure.textContent = `Overall Adventure Booking Cost :
-          ${overallCostAdventure.toFixed(2)} LKR `;
+  ${overallCostAdventure.toFixed(2)} LKR `;
 }
 
 
@@ -410,14 +408,24 @@ const BookNow = (e) => {
                             </tr> 
                `;
 
+  // Get the values of booked rooms
+  const singleRooms = parseInt(document.getElementById('singleNumRooms').value, 10) || 0;
+  const doubleRooms = parseInt(document.getElementById('doubleNumRooms').value, 10) || 0;
+  const tripleRooms = parseInt(document.getElementById('tripleNumRooms').value, 10) || 0;
+  // Calculate total booked rooms
+  let totalRooms = singleRooms + doubleRooms + tripleRooms;
+  // Calculate loyalty points
+  let loyaltyPoints = 0;
+  if (totalRooms > 3) {
+    loyaltyPoints = totalRooms * 20;
+  }
+  // Store loyalty points in local storage
+  localStorage.setItem('loyaltyPointsDisplay', loyaltyPoints);
 
-  document.getElementById("summaryCurrentHotelTable").style.display = "none";
-  document.getElementById("currentHotelCost").innerText = "Current Hotel Booking Cost : 0";
-  document.getElementById('currentTotalCost').innerHTML = "Current Total Booking Cost : 0 LKR";
+ 
 
-  // || checkOutDate === "" || getName === "" || getMobile === "" || getEmail === "" 
-  console.log(checkInDate.value)
-  if (checkInDate.value === "") {
+
+  if (checkInDate.value === "" || checkOutDate.value === "" || getName.value === "" || getMobile.value === "" || getEmail.value === "") {
     alert("Please fill in all required fields.")
     document.getElementById("overallHotelBookingTable").style.display = "none"
     document.getElementById("overallCostHotel").innerText = "Current Hotel Booking Cost : 0 LKR";
@@ -425,17 +433,31 @@ const BookNow = (e) => {
 
   }
 
-  // let availablePoints = tets
-
   document.getElementById('bookingRoomForm').reset();
+  document.getElementById("summaryCurrentHotelTable").style.display = "none";
+  document.getElementById("currentHotelCost").innerText = "Current Hotel Booking Cost : 0";
 
-  loyaltyWrapper.removeAttribute('hidden')
-
-  document.getElementById('loyaltyPointsDisplay').innerHTML = '100 Points'
 }
-
 // Book Now Button
 btnBookNow.addEventListener('click', BookNow);
+
+
+
+// Check loyalty - Button
+const btnLoyalty = document.getElementById("loyalty");
+btnLoyalty.addEventListener('click', checkLoyalty);
+// Check Loyalty 
+function checkLoyalty() {
+  // Get loyalty points from local storage
+  let storedLoyaltyPoints = localStorage.getItem('loyaltyPointsDisplay');
+  // Display loyalty points
+  let loyaltyPointsElement = document.getElementById('loyaltyPointsDisplay');
+  loyaltyPointsElement.textContent = `Loyalty Points: ${storedLoyaltyPoints || 0}`;
+}
+
+
+
+
 
 //Adventure Book - Button
 const btnAdventure = document.getElementById('adventureBtn');
@@ -446,54 +468,29 @@ function bookAdventure() {
   overallTotalCostAdventure();
   textAdventure.innerHTML += `<br> Adventure - Diving <br>Booked Date - ${dateBook.value}  <br> Number of Local Adult - ${numLocalAdult.value}  <br>Number of Local Kid - ${numLocalKid.value}  <br> Number of Foreign Adult - ${numForeignAdult.value}  <br>Number of Foreign Kid - ${numForeignKid.value}  <br>Guide for Adult- ${adultGuide.checked}  <br>Guide for Kid - ${kidGuide.checked} <br>Thank you for booking with us. Looking forward to see you ! `
     ;
-  document.getElementById('bookingRoomForm').reset();
-  document.getElementById('summaryCurrentHotelTable').style.display = "none";
-  document.getElementById('currentHotelCost').innerText = "Current Hotel Booking Cost : 0 LKR ";
 
-  document.getElementById('currentTotalCost').innerHTML = "Current Total Booking Cost : 0 LKR";
-
-  document.getElementById('overallHotelBookingTable').style.display = "none";
-  document.getElementById('overallCostHotel').innerHTML = "Overall Hotel Booking Cost : 0 LKR";
-
-  document.getElementById('bookingAdventureForm').reset();
   document.getElementById('summaryCurrentAdventureTable').style.display = "none";
   document.getElementById('currentAdventureCost').innerText = "Current Adventure Booking Cost : 0 LKR";
 
-  if (dateBook === "") {
+  if (dateBook.value === "") {
     alert("Please fill in all required fields.")
     document.getElementById("overallAdventureBookingText").innerText = "Current Hotel Booking Cost : 0 LKR"
     document.getElementById('currentTotalCost').innerHTML = "Current Total Booking Cost : 0 LKR";
   } else {
 
   }
+
+  document.getElementById('bookingRoomForm').reset();
+  document.getElementById('summaryCurrentHotelTable').style.display = "none";
+  document.getElementById('currentHotelCost').innerText = "Current Hotel Booking Cost : 0 LKR ";
+
+  document.getElementById('overallHotelBookingTable').style.display = "none";
+  document.getElementById('overallCostHotel').innerHTML = "Overall Hotel Booking Cost : 0 LKR";
+
+  document.getElementById('bookingAdventureForm').reset();
+
 }
 
-// Check loyalty - Button
-const btnLoyalty = document.getElementById("loyalty");
-btnLoyalty.addEventListener('click', checkLoyalty);
-
-const loyaltyWrapper = document.getElementById('loyalty-wrapper')
-
-function checkLoyalty() {
-  // Retrieve the number of rooms for each type
-  let singleRooms = parseInt(document.getElementById('singleNumRooms').value) || 0;
-  let doubleRooms = parseInt(document.getElementById('doubleNumRooms').value) || 0;
-  let tripleRooms = parseInt(document.getElementById('tripleNumRooms').value) || 0;
-
-  // Calculate total loyalty points
-  let totalRooms = singleRooms + doubleRooms + tripleRooms;
-  let loyaltyPoints = totalRooms > 3 ? totalRooms * 20 : 0;
-
-  // Store loyalty points in local storage
-  if (loyaltyPoints > 0) {
-    let currentLoyaltyPoints = localStorage.getItem('loyaltyPoints') || 0;
-    let updatedLoyaltyPoints = parseInt(currentLoyaltyPoints) + loyaltyPoints;
-    localStorage.setItem('loyaltyPoints', updatedLoyaltyPoints);
-  }
-
-  // Display loyalty points to the user
-  document.getElementById('loyaltyPointsDisplay').textContent = loyaltyPoints === 0 ? 'No Loyalty Points' : loyaltyPoints + ' points';
-}
 
 
 
@@ -542,8 +539,3 @@ function addToFav() {
 }
 
 
-window.addEventListener('load', () => {
-  const currentDate = new Date().toISOString().split('T')[0];
-  checkInDate.setAttribute('min', currentDate)
-  checkOutDate.setAttribute('min', currentDate)
-});
