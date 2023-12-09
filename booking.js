@@ -440,7 +440,6 @@ const BookNow = (e) => {
 btnBookNow.addEventListener('click', BookNow);
 
 
-
 // Check loyalty - Button
 const btnLoyalty = document.getElementById("loyalty");
 btnLoyalty.addEventListener('click', checkLoyalty);
@@ -452,8 +451,6 @@ function checkLoyalty() {
   let loyaltyPointsElement = document.getElementById('loyaltyPointsDisplay');
   loyaltyPointsElement.textContent = `Loyalty Points: ${storedLoyaltyPoints || 0}`;
 }
-
-
 
 
 
