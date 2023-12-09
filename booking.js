@@ -100,10 +100,8 @@ window.addEventListener('load', () => {
 
 
 
-// Booking Calculations - Current Booking
+// Hotel Current Cost
 function currentCost() {
-
-  // Hotel Current Cost
   let currentHotelCost =
     (totalDays * ((roomSingle.value * singleRoomPrice) +
       (roomDouble.value * doubleRoomPrice) +
@@ -139,20 +137,18 @@ function currentCost() {
 
 // Overall Hotel Booking - Calculations with discunt
 function overallTotalCostHotel(isPromoApplied) {
-  let overallCostHotel =
-    ((totalDays * (roomSingle.value * singleRoomPrice) +
-      (roomDouble.value * doubleRoomPrice) +
-      (roomTriple.value * tripleRoomPrice) +
-      (extraBed.value * extraBedPrice) +
-      (extraMeals.value * extraMealPrice)));
-
+  let overallCostHotel = (totalDays * ((roomSingle.value * singleRoomPrice) +
+    (roomDouble.value * doubleRoomPrice) +
+    (roomTriple.value * tripleRoomPrice) +
+    (extraBed.value * extraBedPrice) +
+    (extraMeals.value * extraMealPrice)));
 
   if (isPromoApplied) {
     overallCostHotel -= overallCostHotel * 0.05;
   }
 
   overallHotelCost.textContent = `Overall Booking Cost :
-      ${overallCostHotel.toFixed(2)} LKR `
+      ${overallCostHotel.toFixed(2)} LKR `;
 }
 
 
@@ -422,20 +418,22 @@ const BookNow = (e) => {
   // Store loyalty points in local storage
   localStorage.setItem('loyaltyPointsDisplay', loyaltyPoints);
 
- 
+
 
 
   if (checkInDate.value === "" || checkOutDate.value === "" || getName.value === "" || getMobile.value === "" || getEmail.value === "") {
-    alert("Please fill in all required fields.")
-    document.getElementById("overallHotelBookingTable").style.display = "none"
+    alert("Please fill in all required fields.");
+    document.getElementById("overallHotelBookingTable").style.display = "none";
     document.getElementById("overallCostHotel").innerText = "Current Hotel Booking Cost : 0 LKR";
-  } else {
-
+    return;
   }
 
   document.getElementById('bookingRoomForm').reset();
-  document.getElementById("summaryCurrentHotelTable").style.display = "none";
-  document.getElementById("currentHotelCost").innerText = "Current Hotel Booking Cost : 0";
+  document.getElementById('summaryCurrentHotelTable').style.display = "none";
+  document.getElementById('currentHotelCost').innerText = "Current Hotel Booking Cost : 0";
+
+  document.getElementById("overallHotelBookingTable").style.display = "";
+
 
 }
 // Book Now Button
@@ -469,15 +467,11 @@ function bookAdventure() {
   textAdventure.innerHTML += `<br> Adventure - Diving <br>Booked Date - ${dateBook.value}  <br> Number of Local Adult - ${numLocalAdult.value}  <br>Number of Local Kid - ${numLocalKid.value}  <br> Number of Foreign Adult - ${numForeignAdult.value}  <br>Number of Foreign Kid - ${numForeignKid.value}  <br>Guide for Adult- ${adultGuide.checked}  <br>Guide for Kid - ${kidGuide.checked} <br>Thank you for booking with us. Looking forward to see you ! `
     ;
 
-  document.getElementById('summaryCurrentAdventureTable').style.display = "none";
-  document.getElementById('currentAdventureCost').innerText = "Current Adventure Booking Cost : 0 LKR";
-
   if (dateBook.value === "") {
-    alert("Please fill in all required fields.")
-    document.getElementById("overallAdventureBookingText").innerText = "Current Hotel Booking Cost : 0 LKR"
-    document.getElementById('currentTotalCost').innerHTML = "Current Total Booking Cost : 0 LKR";
-  } else {
-
+    alert("Please fill in required fields.")
+    document.getElementById("overallAdventureBookingText").innerText = "Overall Adventure Booking Cost : 0 LKR";
+    document.getElementById('summaryCurrentAdventureTable').style.display = "";
+    return;
   }
 
   document.getElementById('bookingRoomForm').reset();
@@ -485,9 +479,11 @@ function bookAdventure() {
   document.getElementById('currentHotelCost').innerText = "Current Hotel Booking Cost : 0 LKR ";
 
   document.getElementById('overallHotelBookingTable').style.display = "none";
-  document.getElementById('overallCostHotel').innerHTML = "Overall Hotel Booking Cost : 0 LKR";
+  document.getElementById('overallCostHotel').innerText = "Overall Hotel Booking Cost : 0 LKR";
 
   document.getElementById('bookingAdventureForm').reset();
+  document.getElementById('summaryCurrentAdventureTable').style.display = "none";
+  document.getElementById('currentAdventureCost').innerHTML = "Current Adventure Booking Cost : 0 LKR";
 
 }
 
