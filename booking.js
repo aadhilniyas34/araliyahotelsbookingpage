@@ -449,7 +449,7 @@ function checkLoyalty() {
   let storedLoyaltyPoints = localStorage.getItem('loyaltyPointsDisplay');
   // Display loyalty points
   let loyaltyPointsElement = document.getElementById('loyaltyPointsDisplay');
-  loyaltyPointsElement.textContent = `Loyalty Points: ${storedLoyaltyPoints || 0}`;
+  loyaltyPointsElement.textContent = `Loyalty Points : ${storedLoyaltyPoints || 0}`;
 }
 
 
@@ -457,6 +457,7 @@ function checkLoyalty() {
 //Adventure Book - Button
 const btnAdventure = document.getElementById('adventureBtn');
 btnAdventure.addEventListener('click', bookAdventure);
+
 
 
 function bookAdventure() {
