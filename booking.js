@@ -278,7 +278,7 @@ function currentAdventureBooking() {
                                     </tr>
 
                                     <tr>
-                                        <td> Local Adult </td>
+                                        <td> Booking Date </td>
                                         <td>${dateBook.value}</td>
                                     </tr>
         
