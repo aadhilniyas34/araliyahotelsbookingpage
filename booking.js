@@ -58,6 +58,7 @@ const btnBookNow = document.getElementById("bookBtn");
 
 // Variables for Adventure Booking
 const formAdventureBooking = document.querySelectorAll('#bookingAdventureForm input');
+const adventureDive = document.getElementById('dive');
 const dateBook = document.getElementById('bookDate');
 const numLocalAdult = document.getElementById("numLocalAdult");
 const hoursLocalAdult = document.getElementById("hoursLocalAdult");
@@ -272,6 +273,11 @@ function currentAdventureBooking() {
                                     </tr>
 
                                     <tr>
+                                        <td> Adventure Type </td>
+                                        <td>${adventureDive.value}</td>
+                                    </tr>
+
+                                    <tr>
                                         <td> Local Adult </td>
                                         <td>${dateBook.value}</td>
                                     </tr>
@@ -431,6 +437,7 @@ const BookNow = (e) => {
   document.getElementById('bookingRoomForm').reset();
   document.getElementById('summaryCurrentHotelTable').style.display = "none";
   document.getElementById('currentHotelCost').innerText = "Current Hotel Booking Cost : 0";
+
 
   document.getElementById("overallHotelBookingTable").style.display = "";
 
